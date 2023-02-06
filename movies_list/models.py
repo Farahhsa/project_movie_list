@@ -7,15 +7,20 @@ User = get_user_model()
 
 # Create your models here.
 class Genre(models.Model):
-    Movie = models.ForeignKey()
+    genre = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.genre
+    
 class Movie(models.Model):
      name = models.CharField(max_length=100)
-     actors = models.TextField
+     actors = models.TextField()
      genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
      release_date = models.DateField()
      rating = models.FloatField(default=0)
 
+     def __str__(self):
+        return self.name
 
 class WatchList(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
