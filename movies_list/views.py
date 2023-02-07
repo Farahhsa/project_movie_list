@@ -1,6 +1,6 @@
 from rest_framework import generics 
 from .serializers import MovieList ,MovieSerializer , GenreSerializer , MovieDetailSerializer
-from .models import Movie , Genre
+from .models import Movie , Genre 
 from movies_list import serializers
 from .serializers import UserLoginSerializer
 from rest_framework.response import Response
@@ -43,5 +43,3 @@ class UserLoginAPIView(APIView):
             valid_data = serializer.data
             return Response(valid_data, status=HTTP_200_OK)
         return Response(serializer.errors, HTTP_400_BAD_REQUEST)
-
-

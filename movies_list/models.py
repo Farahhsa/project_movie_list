@@ -24,8 +24,7 @@ class Movie(models.Model):
 class WatchList(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     Movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-
-
+     
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="reviews")
