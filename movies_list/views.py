@@ -47,6 +47,7 @@ class UserLoginAPIView(APIView):
         if serializer.is_valid(raise_exception=True):
             valid_data = serializer.data
             return Response(valid_data, status=HTTP_200_OK)
+<<<<<<< HEAD
         return Response(serializer.errors, HTTP_400_BAD_REQUEST)
 
 
@@ -55,3 +56,6 @@ class WatchListView(generics.ListAPIView):
     queryset = WatchList.objects.all()
     serializer_class = WatchListSerializer
 
+=======
+        return Response(serializer.errors, HTTP_400_BAD_REQUEST)
+>>>>>>> e7d35a3e5c8904cef30c917eca8b6c3479ac9492

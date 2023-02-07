@@ -9,7 +9,7 @@ User = get_user_model()
 class MovieList(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ['name', 'actors', 'genre','release_date','rating']
+        fields = ['name', 'actors', 'genre','release_date']
 
 class WatchListSerializer(serializers.ModelSerializer):
     class Meta:
