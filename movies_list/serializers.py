@@ -1,4 +1,4 @@
-from .models import Movie, Genre
+from .models import Movie, Genre, WatchList
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -11,7 +11,13 @@ class MovieList(serializers.ModelSerializer):
         model = Movie
         fields = ['name', 'actors', 'genre','release_date','rating']
 
+class WatchListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WatchList
+        fields = ['user', 'movie','watched']
+
 class MovieSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta: 
         model = Movie 
         fields = '__all__'
