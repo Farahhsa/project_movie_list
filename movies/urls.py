@@ -16,10 +16,23 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from movies_list.views import MovieListView , MovieCreate , GenreCreate , MovieDetail
+from movies_list.views import RegisterView
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+from rest_framework_simplejwt.views import TokenVerifyView
+from movies_list.views import UserLoginAPIView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/movies/add/', MovieCreate.as_view(), name = 'add_moviews'),
     path('api/movies_list/', MovieListView.as_view(), name='movies_list'),
     path('api/movies/<int:object_id>/',MovieDetail.as_view(), name='movie_detail'), 
-    path('api/genres/add/', GenreCreate.as_view(),name='add_genres'),]
+    path('api/genres/add/', GenreCreate.as_view(),name='add_genres'),
+    path('api/register/',RegisterView.as_view(),name='api_register'),
+    path('api/login/',UserLoginAPIView.as_view(),name='api_login'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    ]

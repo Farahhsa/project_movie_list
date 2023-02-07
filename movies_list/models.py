@@ -17,7 +17,6 @@ class Movie(models.Model):
      actors = models.TextField()
      genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
      release_date = models.DateField()
-     rating = models.FloatField(default=0)
 
      def __str__(self):
         return self.name
@@ -28,13 +27,13 @@ class WatchList(models.Model):
 
 
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="reviews")
     review = models.TextField()
 
 class Reting(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ratings")
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="ratings")
     rating = models.PositiveIntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)])
 
 
