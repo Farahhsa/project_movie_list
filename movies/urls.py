@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from movies_list.views import MovieListView , MovieCreate , GenreCreate , MovieDetail
-from movies_list.views import RegisterView 
+from movies_list.views import MovieListView , MovieCreate , GenreCreate , MovieDetail, WatchListView
+from movies_list.views import RegisterView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -34,4 +34,6 @@ urlpatterns = [
     path('api/login/',UserLoginAPIView.as_view(),name='api_login'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),]
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('api/watch_list/', WatchListView.as_view(), name='watch_list'),
+    ]
