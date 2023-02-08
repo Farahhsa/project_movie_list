@@ -36,6 +36,6 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('api/watch_list/', WatchListView.as_view(), name='watch_list'),
-    path('api/watch_list/<int:object_id>/', WatchedListCreate.as_view(), name='WatchedListCreate'),
+    path('api/watch_list/create/', WatchedListCreate.as_view(), name='WatchedListCreate'),
     path('api/updatewatchlist/', UpdateWatchListView.as_view(), name='updatewatchlist'),
     ]
