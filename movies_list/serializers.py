@@ -1,4 +1,4 @@
-from .models import Movie, Genre, WatchList
+from .models import Movie, Genre, WatchList,Review
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -12,6 +12,7 @@ class MovieList(serializers.ModelSerializer):
         fields = ['name', 'actors', 'genre','release_date']
 
 class WatchListSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
         model = WatchList
         fields = ['user', 'movie','watched']
@@ -87,4 +88,7 @@ class UserLoginSerializer(serializers.Serializer):
         data["access"] = token
         return data
 
-
+class ReviewSerializer(serializers.Serializer):
+    class Meta:
+        model = Review
+        fields = ['user','movie','review','rating']

@@ -15,29 +15,27 @@ class Genre(models.Model):
 class Movie(models.Model):
      name = models.CharField(max_length=100)
      actors = models.TextField()
-     genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='movie')
+     genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='genre_movie')
      release_date = models.DateField()
-     user=models.ForeignKey(User,on_delete=models.CASCADE, related_name='movie')
-
      def __str__(self):
         return self.name
 
 class WatchList(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='watchlist')
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='watchlist')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_watchlist')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='movie_watchlist')
     watched = models.BooleanField()
 
 
 
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="reviews")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_reviews")
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="movie_reviews")
     review = models.TextField()
-
-class Reting(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ratings")
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="ratings")
     rating = models.PositiveIntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)])
+
+
+
+
 
 
 
