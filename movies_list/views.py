@@ -1,5 +1,5 @@
 from rest_framework import generics 
-from .serializers import MovieList ,MovieSerializer , GenreSerializer , MovieDetailSerializer,WatchListSerializer,ReviewSerializer
+from .serializers import MovieList ,MovieSerializer , GenreSerializer , MovieDetailSerializer,WatchListSerializer,ReviewSerializer ,CreateMovie
 from .models import Movie , Genre, WatchList
 from movies_list import serializers
 from .serializers import UserLoginSerializer
@@ -12,6 +12,13 @@ from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.permissions import  IsAuthenticated, IsAdminUser
 
 # Create your views here.
+
+class MovieCreate(CreateAPIView):
+    serializer_class = CreateMovie
+    def perform_create(self, serializer):
+        serializers.save(user.self)
+
+
 class MovieListView(generics.ListAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieList
@@ -31,6 +38,15 @@ class MovieCreate(generics.CreateAPIView):
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+class WatchedListCreate(generics.CreateAPIView):
+    serializer_class = WatchListSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def perform_create(self,serializer):
+        movie_obj=Movie.objects.get(id=self.kwargs['object_id'])
+        serializer.save(user=self.request.user,movie=movie_obj)
+        
 
 
 class GenreCreate(generics.CreateAPIView):

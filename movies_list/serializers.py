@@ -13,6 +13,7 @@ class MovieList(serializers.ModelSerializer):
 
 class WatchListSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
+    watched = serializers.BooleanField(read_only=True)
     class Meta:
         model = WatchList
         fields = ['user', 'movie','watched']
