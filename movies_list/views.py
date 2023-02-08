@@ -31,6 +31,7 @@ class MovieDetail(generics.RetrieveAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieDetailSerializer
     lookup_field = "id"
+    lookup_url_kwarg = 'object_id'
 
 
 class RegisterView(generics.CreateAPIView):
@@ -54,4 +55,18 @@ class UserLoginAPIView(APIView):
 class WatchListView(generics.ListAPIView):
     queryset = WatchList.objects.all()
     serializer_class = WatchListSerializer
+    permission_classes = [IsAuthenticated,]
 
+    def get_object(self):
+        user = self.request.user
+        movie_id = self.kwargs['movie_id']
+        return WatchList.objects.get(user=user, movie_id=movie_id)
+    
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_authenticated:
+            return Movie.objects.filter(WatchList__user=user, WatchList__watched=True)
+        else: 
+            queryset = Movie.objects.all
+        return queryset
+    
